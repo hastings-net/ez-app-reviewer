@@ -1,0 +1,50 @@
+.not-visible { 
+    display: none;
+}
+
+.dz{
+    border-style: dashed;
+    border-radius: 5px;
+    border-color: #ddd;
+    transition: .5s;
+}
+
+.dz:hover {
+    background-color: #f5f5f5;
+}
+
+.avatar-sm {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.avatar-big {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+}
+
+.logo-sm {
+    height: 40px;
+    width: auto;
+}
+
+
+dataframe {
+    overflow-y: scroll;
+    max-height: 500px;
+}
+
+table , td, th {
+	border: none;
+}
+
+td, th {
+	padding-right: 15px;
+}
+
+.app_icon {
+    width: 100px;
+    border-radius: 20px;
+}

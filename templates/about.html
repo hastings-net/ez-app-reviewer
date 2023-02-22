@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+About
+{% endblock title %}
+
+{% block content %}
+
+<div class="container bg-light">
+
+    <div class="row mt-5">
+        <div class="col">
+            <h4 class="mt-3 pb-4">EzAppReviewerについて</h4>
+            <p><b>EzAppReviewer</b>は、Google
+                Playストアで配信されているアプリに投稿されたレビューを収集し、簡易的なスコア推移・レビューの形態素解析が行える、オンラインBIアプリケーションです。<br>
+                取得したレビューはCSV形式でダウンロードできます。また、生成した図表については、レポートとして保存した後、PDF形式でダウンロードすることができます。
+            </p>
+            <p>※現在、Google Playストアで配信されているアプリのレビューのみ取得が行えます。今後、App Storeで配信されているアプリのレビューの取得も行えるように改修する予定です。</p>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col">
+            <h4>レビューの取得方法</h4>
+            <h5 class="mt-5">1. ログインします（アカウントをお持ちでない方は、「新規登録」よりアカウントを取得してください）</h5>
+            <div class="col-4 mt-4">
+                <img src="{% static 'about/01.png' %}" class="img-fluid w-100">
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col">
+            <h5 class="mt-5">2. アプリストアからURLをコピーして、URLフォームに入力します</h5>
+            <div class="mt-4">
+                <img src="{% static 'about/02.png' %}" class="img-fluid w-50">
+            </div>
+            <div class="mt-4">
+                <img src="{% static 'about/02-01.png' %}" class="img-fluid w-50">
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <div class="row mt-5">
+                    <h5 class="mt-5">3. 任意の「表示するグラフの種類」「形態素解析グラフの種類」「サンプリング数」を選択します</h5>
+                    各項目の詳細については以下の通りです。
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <p><b>表示するグラフの種類</b></p>
+                        </div>
+                        <div class="col-4">
+                            「スコア推移：折れ線グラフ」
+                            <img src="{% static "about/03-01.png" %}" class="img-fluid w-80">
+                        </div>
+                        <div class="col-4">
+                            「スコア推移：100%積み上げ棒グラフ」
+                            <img src="{% static "about/03-02.png" %}" class="img-fluid w-80">
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <p><b>形態素解析グラフの種類</b></p>
+                        </div>
+                        <div class="col-sm">
+                            「形態素解析：頻出単語」
+                            <img src="{% static "about/03-03.png" %}" class="img-fluid w-80">
+                        </div>
+                        <div class="col-sm">
+                            「形態素解析：単語数の分布」
+                            <img src="{% static "about/03-04.png" %}" class="img-fluid w-80">
+                        </div>
+                        <div class="col-sm">
+                            「形態素解析：ワードクラウド」
+                            <img src="{% static "about/03-05.png" %}" class="img-fluid w-80">
+                        </div>
+                        <div class="col-sm">
+                            「形態素解析：共起ネットワーク」
+                            <img src="{% static "about/03-06.png" %}" class="img-fluid w-80">
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-10 mt-4">
+                            <b>サンプリング数</b><br>
+                            <p class="mt-2">アプリサイトから取得するレビューの件数です。Google Play
+                                Storeの制限により、APIで取得できるレビューの最大件数は1000件となっています。
+                                また、最新のレビューを取得するには、count値を100以下に設定し、必要な場合には複数回APIを呼び出す必要があります。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col">
+            <h5 class="mt-5">4. 「アプリのレビューをみる」ボタンをクリックすると、選択したグラフと取得したレビューが表示されます</h5>
+            日別・月別スコア、スコア推移の画像、取得したレビュー一覧、形態素解析の結果が表示されます。
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <img src="{% static "about/04.png" %}" class="img-fluid w-80">
+                </div>
+                <br>
+                <div class="col-md-4">
+                    <img src="{% static "about/04-01.png" %}" class="img-fluid w-80">
+                </div>
+                <div class="col-md-4">
+                    <img src="{% static "about/04-02.png" %}" class="img-fluid w-80">
+                </div>
+                <div class="col-md-4">
+                    <img src="{% static "about/04-03.png" %}" class="img-fluid w-80">
+                </div>
+                <div class="col-md-4">
+                    <img src="{% static "about/04-04.png" %}" class="img-fluid w-80">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col">
+            <h5 class="mt-5">5. 表示されたボタンを押すことにより、以下の対応が行えます。</h5>
+            <div class="row mt-5">
+                <div class="col-12">
+                    <img src="{% static "about/05.png" %}" class="img-fluid w-80">
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-10 mt-4">
+                    <p><b>レポート作成（スコア推移）・レポート作成（形態素解析）</b></p>
+                    <p class="mt-2">「レポート作成」を押すことで、スコア推移または形態素解析の図表のレポートを作成することができます。</p>
+                </div>
+                <div class="col-3 mt-4">
+                    <img src="{% static "about/05-01.png" %}" class="img-fluid w-80">
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-10 mt-4">
+                    <b>CSV Download</b><br>
+                    <p class="mt-2">取得したレビュをCSV形式でダウンロードすることができます。なお、CSVの文字コードはutf-8となります。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row mt-5">
+        <div class="col">
+            <h5 class="mt-5">6. 保存したレポートの閲覧</h5>
+            <p>保存したレポートは「Reports」から確認することができます。また、PDF形式でダウンロードすることもできます。</p>
+            <div class="col-10 mt-4">
+                <img src="{% static 'about/06.png' %}" class="img-fluid w-100">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row mt-5">
+        <div class="col">
+            <p class="mt-5">このツールはまだ開発版です。登録したアカウントや保存したレポートは削除されることがございます。<br>
+                また、お気づきの点がありましたら、フィードバックをお送りください。<br>
+                <a href="https://github.com/hastings-net" target="_blank">Github</a> |
+                <a href="https://qiita.com/hastings" target="_blank">Qiita</a>
+            </p>
+            <p class="mt-3">Copyright © hastings 2023 </p>
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}

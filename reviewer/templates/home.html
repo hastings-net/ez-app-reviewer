@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block scripts %}
+<script src="{% static 'reviewer/home.js' %}" defer></script>
+{% endblock scripts %}
+
+{% block title %}
+Reviewer
+{% endblock title %}
+
+
+{% block content %}
+
+<!-- Modal -->
+<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">レポートを作成する</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body" id="modal-body">
+				<div id="alert-box"></div>
+				<form id="report-form" autocomplete="off">
+					{% csrf_token %}
+					{{report_form|crispy}}
+					<button type="submit" class="btn btn-success mt-2">保存</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<form method="post" autocomplete="off">
+	{% csrf_token %}
+	{{ form|crispy }}
+
+	<button type="submit" class="btn btn-primary mt-3 mr-3">アプリのレビューをみる</button>
+
+	<button type="button" class="btn mt-3 btn-success not-visible" id="report-btn" data-bs-toggle="modal"
+		data-bs-target="#reportModal">
+		レポート作成（スコア推移）
+	</button>
+
+	<button type="button" class="btn mt-3 btn-success not-visible" id="report-btn-nlp" data-bs-toggle="modal"
+		data-bs-target="#reportModal">
+		レポート作成（形態素解析）
+	</button>
+
+	<a href="{% url 'reviewer:download_csv' %}?url={{ form.url.value }}&samples_number={{ form.samples_number.value }}"
+		class="btn mt-3 btn-secondary not-visible" id="csv-btn">Download CSV</a>
+</form>
+
+{% if url %}
+
+<br><br>
+
+<table>
+	<tbody>
+		<tr>
+			<td rowspan="3"><img src="{{ app_icon|safe }}" class="app_icon" /></td>
+			<td>
+				<h5 id="title">アプリ名： {{ title }}</h5>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<h5>App ID： {{ app_id }}</h5>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<h5>開発元： {{ developer }}</h5>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+{% endif %}
+
+<br><br>
+
+{% if no_data %}
+
+<div class="alert alert-warning" role="alert">{{ no_data }}</div>
+
+{% endif %}
+
+{% if df %}
+
+<img src="data:image/png;base64,{{ chart2|safe }}" id="img">
+<br><br>
+
+{% endif %}
+
+{% if df_score %}
+<br>
+<h6>日別スコア</h6>
+<div class="overflow-auto bg-light" style="height: 200px; width: 280px">{{ df_score|safe }}</div>
+<br>
+{% endif %}
+
+{% if df_score_month %}
+<br>
+<h6>月別スコア</h6>
+<div class="overflow-auto bg-light" style="height: 200px; width: 280px;">{{ df_score_month|safe }}</div>
+<br>
+{% endif %}
+
+{% if df %}
+
+<h6>レビュー一覧</h6>
+<div class="overflow-auto bg-light" style="height: 500px">{{ df|safe }}</div>
+
+{% endif %}
+
+<br><br>
+
+{% if nlp_chart %}
+
+{{ nlp_chart|safe }}
+
+{% endif %}
+
+{% if nlp_chart_png %}
+
+<img src="data:image/png;base64,{{ nlp_chart_png|safe }}" id="img-nlp" style="display: none">
+
+{% endif %}
+
+{% if nlp_wordcloud_png %}
+
+<img src="data:image/png;base64,{{ nlp_wordcloud_png|safe }}">
+
+{% endif %}
+
+{% if df_nlp %}
+
+<h6>形態素解析</h6>
+<div class="overflow-auto bg-light" style="height: 500px">{{ df_nlp|safe }}</div>
+
+{% endif %}
+
+<br><br>
+
+{% endblock content %}
