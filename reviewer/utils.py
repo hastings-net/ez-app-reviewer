@@ -23,7 +23,6 @@ def generate_code():
 def mecab_text(text):
     # MeCabのインスタンスを作成（辞書はmecab-ipadic-neologdを使用）
     # dicdir = "-d ./reviewer/mecab/dic/mecab-unidic-neologd"
-    # dicdir = "-d /django/reviewer/mecab/dic/mecab-unidic-neologd"
     dicdir = "-d /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd"
     mecab = MeCab.Tagger(dicdir)
 
@@ -36,10 +35,12 @@ def mecab_text(text):
     while node:
         # 名詞のみリストに格納する
         if node.feature.split(",")[0] == "名詞":
-            wordlist.append(node.surface)
+            if node.surface != "の":
+                wordlist.append(node.surface)
         # 形容詞を取得、elifで追加する
         elif node.feature.split(",")[0] == "形容詞":
-            wordlist.append(node.surface)
+            if node.surface != "の":
+                wordlist.append(node.surface)
         # 動詞を取得、elifで追加する
         # elif node.feature.split(',')[0] == '動詞':
         #    wordlist.append(node.surface)
